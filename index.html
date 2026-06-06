@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Danh sách tổng hợp các dự án trí tuệ nhân tạo (AI) mã nguồn mở nổi bật từ cộng đồng nhà phát triển Việt Nam.">
+    <title>Vietnamese Open Source AI Projects</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-color: #080b11;
+            --card-bg: rgba(17, 25, 40, 0.65);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --card-border-hover: rgba(139, 92, 246, 0.4);
+            --text-primary: #f3f4f6;
+            --text-secondary: #9ca3af;
+            --accent-purple: #8b5cf6;
+            --accent-cyan: #06b6d4;
+            --accent-pink: #ec4899;
+            --glow-color: rgba(139, 92, 246, 0.15);
+            --glow-cyan: rgba(6, 182, 212, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(139, 92, 246, 0.08) 0, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(6, 182, 212, 0.08) 0, transparent 50%);
+            background-attachment: fixed;
+            color: var(--text-primary);
+            line-height: 1.6;
+            padding: 3rem 1.5rem;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 4rem;
+            position: relative;
+        }
+
+        .pulse-logo {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.4);
+            animation: pulse-glow 2s infinite alternate;
+        }
+
+        h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.75rem;
+            font-weight: 800;
+            letter-spacing: -0.025em;
+            margin-bottom: 0.75rem;
+            background: linear-gradient(135deg, #ffffff 30%, #a78bfa 70%, #22d3ee 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Responsive Grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            gap: 2rem;
+        }
+
+        /* Glassmorphism Card Style */
+        .project-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 18px;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            backdrop-filter: blur(16px) saturate(180%);
+            -webkit-backdrop-filter: blur(16px) saturate(180%);
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-purple), var(--accent-cyan));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--card-border-hover);
+            box-shadow: 0 12px 30px var(--glow-color);
+        }
+
+        .project-card:hover::before {
+            opacity: 1;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.25rem;
+        }
+
+        .badge {
+            background: rgba(139, 92, 246, 0.12);
+            color: #c084fc;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .stars-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            background: rgba(234, 179, 8, 0.08);
+            border: 1px solid rgba(234, 179, 8, 0.2);
+            color: #f59e0b;
+            padding: 0.25rem 0.6rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .project-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: #ffffff;
+        }
+
+        .author-box {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1.25rem;
+            font-size: 0.85rem;
+        }
+
+        .author-avatar {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #374151;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #9ca3af;
+            font-size: 0.65rem;
+        }
+
+        .author-link {
+            color: var(--accent-cyan);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .author-link:hover {
+            color: #22d3ee;
+            text-decoration: underline;
+        }
+
+        .project-description {
+            color: var(--text-secondary);
+            font-size: 0.925rem;
+            margin-bottom: 1.5rem;
+            height: 4.5rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .usecases-box {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 1.75rem;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        .usecases-title {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--accent-cyan);
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .usecases-list {
+            list-style: none;
+            font-size: 0.825rem;
+            color: var(--text-secondary);
+        }
+
+        .usecases-list li {
+            position: relative;
+            padding-left: 1rem;
+            margin-bottom: 0.35rem;
+        }
+
+        .usecases-list li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--accent-purple);
+            font-weight: bold;
+        }
+
+        .card-footer {
+            margin-top: auto;
+        }
+
+        .github-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            text-decoration: none;
+            padding: 0.75rem 1rem;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .github-btn:hover {
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
+            border-color: transparent;
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+            transform: scale(1.02);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 5rem;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 2rem;
+        }
+
+        footer a {
+            color: var(--accent-cyan);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Pulse Animation */
+        @keyframes pulse-glow {
+            from {
+                box-shadow: 0 0 10px rgba(139, 92, 246, 0.3);
+            }
+            to {
+                box-shadow: 0 0 25px rgba(139, 92, 246, 0.6);
+            }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            .project-description {
+                height: auto;
+                -webkit-line-clamp: unset;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <div class="pulse-logo">
+                <i class="fa-solid fa-brain"></i>
+            </div>
+            <h1>Vietnamese Open Source AI Projects</h1>
+            <p class="subtitle">Tổng hợp các dự án Trí Tuệ Nhân Tạo mã nguồn mở nổi bật từ cộng đồng nhà phát triển Việt Nam.</p>
+        </header>
+
+        <div class="projects-grid">
+            <!-- Project 1 -->
+            <div class="project-card">
+                <div>
+                    <div class="card-header">
+                        <span class="badge">Lộ trình học tập</span>
+                        <span class="stars-badge">
+                            <i class="fa-solid fa-star"></i> 28.7K+
+                        </span>
+                    </div>
+                    <h2 class="project-title">ML for Software Engineers</h2>
+                    <div class="author-box">
+                        <div class="author-avatar"><i class="fa-solid fa-user"></i></div>
+                        <span>Bởi</span>
+                        <a href="https://github.com/ZuzooVn" target="_blank" class="author-link">Nam Vũ (@ZuzooVn)</a>
+                    </div>
+                    <p class="project-description">Lộ trình tự học Machine Learning theo phương pháp thực hành từ trên xuống (top-down), được thiết kế tối ưu riêng cho các kỹ sư phần mềm muốn làm chủ AI.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="usecases-box">
+                        <div class="usecases-title">Tình huống áp dụng</div>
+                        <ul class="usecases-list">
+                            <li>Lập trình viên muốn chuyển hướng làm AI/ML.</li>
+                            <li>Xây dựng lộ trình đào tạo kỹ năng AI nội bộ.</li>
+                        </ul>
+                    </div>
+                    <a href="https://github.com/ZuzooVn/machine-learning-for-software-engineers" target="_blank" class="github-btn">
+                        <i class="fa-brands fa-github"></i> Xem Repository
+                    </a>
+                </div>
+            </div>
+
+            <!-- Project 2 -->
+            <div class="project-card">
+                <div>
+                    <div class="card-header">
+                        <span class="badge">Bộ công cụ Agent</span>
+                        <span class="stars-badge">
+                            <i class="fa-solid fa-star"></i> 7.6K+
+                        </span>
+                    </div>
+                    <h2 class="project-title">AG Kit (Antigravity Kit)</h2>
+                    <div class="author-box">
+                        <div class="author-avatar"><i class="fa-solid fa-user"></i></div>
+                        <span>Bởi</span>
+                        <a href="https://github.com/vudovn" target="_blank" class="author-link">Vũ Đỗ (@vudovn)</a>
+                    </div>
+                    <p class="project-description">Chèn các tác nhân chuyên biệt (agent personas), kịch bản kỹ năng và quy trình tự động vào thư mục cục bộ giúp tối ưu hóa hiệu năng và token cho các AI Editor.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="usecases-box">
+                        <div class="usecases-title">Tình huống áp dụng</div>
+                        <ul class="usecases-list">
+                            <li>Cấu hình sâu kỹ năng AI tương tác với codebase.</li>
+                            <li>Tiết kiệm 13% - 33% token nhờ cơ chế nén ngữ cảnh.</li>
+                        </ul>
+                    </div>
+                    <a href="https://github.com/vudovn/ag-kit" target="_blank" class="github-btn">
+                        <i class="fa-brands fa-github"></i> Xem Repository
+                    </a>
+                </div>
+            </div>
+
+            <!-- Project 3 -->
+            <div class="project-card">
+                <div>
+                    <div class="card-header">
+                        <span class="badge">Tiện ích mở rộng</span>
+                        <span class="stars-badge">
+                            <i class="fa-solid fa-star"></i> 2.1K+
+                        </span>
+                    </div>
+                    <h2 class="project-title">ClaudeKit Skills</h2>
+                    <div class="author-box">
+                        <div class="author-avatar"><i class="fa-solid fa-user"></i></div>
+                        <span>Bởi</span>
+                        <a href="https://github.com/mrgoonie" target="_blank" class="author-link">@mrgoonie</a>
+                    </div>
+                    <p class="project-description">Hệ sinh thái kịch bản kỹ năng đóng gói chạy trực tiếp trên terminal và chợ plugin hỗ trợ đắc lực cho Claude Code tự động hóa các tác vụ phát triển.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="usecases-box">
+                        <div class="usecases-title">Tình huống áp dụng</div>
+                        <ul class="usecases-list">
+                            <li>Tự động hóa lập trình frontend, database, APIs.</li>
+                            <li>Tránh tràn ngữ cảnh bằng cách phân rã các sub-agents.</li>
+                        </ul>
+                    </div>
+                    <a href="https://github.com/mrgoonie/claudekit-skills" target="_blank" class="github-btn">
+                        <i class="fa-brands fa-github"></i> Xem Repository
+                    </a>
+                </div>
+            </div>
+
+            <!-- Project 4 -->
+            <div class="project-card">
+                <div>
+                    <div class="card-header">
+                        <span class="badge">Xử lý âm thanh</span>
+                        <span class="stars-badge">
+                            <i class="fa-solid fa-star"></i> 1.6K+
+                        </span>
+                    </div>
+                    <h2 class="project-title">VieNeu-TTS</h2>
+                    <div class="author-box">
+                        <div class="author-avatar"><i class="fa-solid fa-user"></i></div>
+                        <span>Bởi</span>
+                        <a href="https://github.com/pnnbao97" target="_blank" class="author-link">Bảo Phan (@pnnbao97)</a>
+                    </div>
+                    <p class="project-description">Mô hình AI chuyển văn bản thành giọng nói (Text-to-Speech) tiếng Việt và song ngữ Anh-Việt, hỗ trợ clone giọng nói 3 giây chạy offline hoàn toàn.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="usecases-box">
+                        <div class="usecases-title">Tình huống áp dụng</div>
+                        <ul class="usecases-list">
+                            <li>Tích hợp giọng đọc tự nhiên vào chatbot, trợ lý ảo.</li>
+                            <li>Các dự án bảo mật cần vận hành offline (on-device AI).</li>
+                        </ul>
+                    </div>
+                    <a href="https://github.com/pnnbao97/VieNeu-TTS" target="_blank" class="github-btn">
+                        <i class="fa-brands fa-github"></i> Xem Repository
+                    </a>
+                </div>
+            </div>
+
+            <!-- Project 5 -->
+            <div class="project-card">
+                <div>
+                    <div class="card-header">
+                        <span class="badge">Kiểm định chất lượng</span>
+                        <span class="stars-badge">
+                            <i class="fa-solid fa-star"></i> 1.2K+
+                        </span>
+                    </div>
+                    <h2 class="project-title">App Store Preflight</h2>
+                    <div class="author-box">
+                        <div class="author-avatar"><i class="fa-solid fa-user"></i></div>
+                        <span>Bởi</span>
+                        <a href="https://github.com/truongduy2611" target="_blank" class="author-link">Duy Trương (@truongduy2611)</a>
+                    </div>
+                    <p class="project-description">Bộ quét tự động phát hiện các lỗi vi phạm chính sách của Apple (App Store Rejection Patterns) dành cho dự án iOS/macOS trước khi nộp ứng dụng.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="usecases-box">
+                        <div class="usecases-title">Tình huống áp dụng</div>
+                        <ul class="usecases-list">
+                            <li>Kiểm thử nghiệm thu tự động trước khi submit lên App Store.</li>
+                            <li>Quét nhanh các lỗi thiếu manifest bảo mật, sai entitlements.</li>
+                        </ul>
+                    </div>
+                    <a href="https://github.com/truongduy2611/app-store-preflight-skills" target="_blank" class="github-btn">
+                        <i class="fa-brands fa-github"></i> Xem Repository
+                    </a>
+                </div>
+            </div>
+
+            <!-- Project 6 -->
+            <div class="project-card">
+                <div>
+                    <div class="card-header">
+                        <span class="badge">Phối hợp Tác nhân</span>
+                        <span class="stars-badge">
+                            <i class="fa-solid fa-star"></i> Nổi bật
+                        </span>
+                    </div>
+                    <h2 class="project-title">AI DevKit</h2>
+                    <div class="author-box">
+                        <div class="author-avatar"><i class="fa-solid fa-user"></i></div>
+                        <span>Bởi</span>
+                        <a href="https://github.com/codeaholicguy" target="_blank" class="author-link">Hoang Nguyen (@codeaholicguy)</a>
+                    </div>
+                    <p class="project-description">Universal CLI toolkit giúp các AI Agent làm việc theo quy trình chuẩn và hỗ trợ chia sẻ bộ nhớ/giao tiếp chéo giữa các phiên làm việc của tác nhân.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="usecases-box">
+                        <div class="usecases-title">Tình huống áp dụng</div>
+                        <ul class="usecases-list">
+                            <li>Thiết lập phối hợp giữa nhiều tác nhân (Codex & Claude).</li>
+                            <li>Đồng bộ ngữ cảnh thiết kế dự án tránh việc AI bị quên.</li>
+                        </ul>
+                    </div>
+                    <a href="https://github.com/codeaholicguy/ai-devkit" target="_blank" class="github-btn">
+                        <i class="fa-brands fa-github"></i> Xem Repository
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Trang web được thiết kế và triển khai tự động bởi <a href="https://github.com/vudovn/ag-kit" target="_blank">Antigravity Agent</a>. &copy; 2026.</p>
+        </footer>
+    </div>
+
+</body>
+</html>
