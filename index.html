@@ -52,7 +52,7 @@
         }
 
         .container {
-            max-width: 1300px;
+            max-width: 1350px;
             margin: 0 auto;
         }
 
@@ -156,36 +156,18 @@
             font-size: 0.9rem;
         }
 
-        .view-toggle-buttons {
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        .toggle-btn {
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid var(--card-border);
-            color: var(--text-secondary);
-            padding: 0.6rem 1.2rem;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            font-weight: 600;
+        /* Section Styling */
+        .section-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.85rem;
+            font-weight: 700;
+            margin: 2.5rem 0 1.5rem 0;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-            transition: all 0.3s ease;
-        }
-
-        .toggle-btn:hover {
-            background: rgba(255, 255, 255, 0.08);
-            color: var(--text-primary);
-        }
-
-        .toggle-btn.active {
-            background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
-            color: white;
-            border-color: transparent;
-            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+            gap: 0.75rem;
+            color: #ffffff;
+            border-left: 4px solid var(--accent-purple);
+            padding-left: 0.75rem;
         }
 
         /* Grid View */
@@ -193,7 +175,7 @@
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
             gap: 2rem;
-            transition: opacity 0.3s ease;
+            margin-bottom: 3rem;
         }
 
         .project-card {
@@ -403,7 +385,7 @@
             transform: scale(1.01);
         }
 
-        /* Table View */
+        /* Table View Section */
         .projects-table-container {
             width: 100%;
             overflow-x: auto;
@@ -411,8 +393,8 @@
             border: 1px solid var(--card-border);
             border-radius: 18px;
             backdrop-filter: blur(12px);
-            margin-top: 1.5rem;
-            display: none;
+            margin-top: 1rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
         }
 
         .projects-table {
@@ -443,6 +425,12 @@
             background: var(--table-row-hover);
         }
 
+        .table-stt {
+            font-weight: 600;
+            color: var(--accent-cyan);
+            font-family: 'Outfit', sans-serif;
+        }
+
         .table-proj-title {
             font-family: 'Outfit', sans-serif;
             color: #ffffff;
@@ -454,24 +442,6 @@
         .table-author {
             font-size: 0.8rem;
             color: var(--text-secondary);
-        }
-
-        .table-usecases {
-            list-style: none;
-            padding-left: 0;
-        }
-
-        .table-usecases li {
-            position: relative;
-            padding-left: 0.85rem;
-            margin-bottom: 0.25rem;
-        }
-
-        .table-usecases li::before {
-            content: "•";
-            position: absolute;
-            left: 0;
-            color: var(--accent-purple);
         }
 
         .table-github-link {
@@ -495,6 +465,36 @@
             align-items: flex-start;
         }
 
+        .table-purpose-box {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .table-desc-text {
+            color: var(--text-primary);
+            font-size: 0.9rem;
+        }
+
+        .table-usecases-list {
+            list-style: none;
+            padding-left: 0;
+            font-size: 0.825rem;
+        }
+
+        .table-usecases-list li {
+            position: relative;
+            padding-left: 0.85rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .table-usecases-list li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--accent-purple);
+        }
+
         /* Footer */
         footer {
             text-align: center;
@@ -516,13 +516,13 @@
 
         /* Empty state */
         .empty-state {
-            grid-column: 1 / -1;
             text-align: center;
             padding: 4rem 2rem;
             background: rgba(17, 24, 39, 0.25);
             border: 1px dashed var(--card-border);
             border-radius: 16px;
             display: none;
+            margin: 2rem 0;
         }
 
         .empty-state i {
@@ -585,16 +585,7 @@
             </div>
             
             <div class="stats-badge" id="statsCount">
-                Đang hiển thị: 13 dự án
-            </div>
-
-            <div class="view-toggle-buttons">
-                <button class="toggle-btn active" id="cardViewBtn" onclick="setViewMode('card')">
-                    <i class="fa-solid fa-grip-vertical"></i> Dạng Thẻ
-                </button>
-                <button class="toggle-btn" id="tableViewBtn" onclick="setViewMode('table')">
-                    <i class="fa-solid fa-table-list"></i> Dạng Bảng
-                </button>
+                Đang hiển thị: 14 dự án
             </div>
         </div>
 
@@ -605,475 +596,23 @@
             <p style="color: var(--text-secondary); margin-top: 0.5rem;">Vui lòng điều chỉnh hoặc xóa bộ lọc để thử lại.</p>
         </div>
 
-        <!-- Grid View Mode -->
+        <!-- Section 1: Card Dashboard -->
+        <h2 class="section-title"><i class="fa-solid fa-grip-vertical"></i> Dashboard Kiểu Thẻ</h2>
         <div class="projects-grid" id="projectsGrid">
-            <!-- Project 1 (New) -->
-            <div class="project-card" data-title="OpenScreen" data-desc="Bộ quay demo màn hình mã nguồn mở gọn nhẹ chạy trực tiếp trên web" data-author="Siddharth Vaddem">
-                <div>
-                    <div class="card-header">
-                        <span class="category-badge">Quay màn hình</span>
-                        <span class="origin-badge">
-                            <i class="fa-solid fa-earth-americas"></i> Global
-                        </span>
-                    </div>
-                    <h2 class="project-title">OpenScreen</h2>
-                    <div class="author-box">
-                        <div class="author-avatar"><i class="fa-solid fa-user"></i></div>
-                        <span>Bởi</span>
-                        <a href="https://github.com/siddharthvaddem" target="_blank" class="author-link">Siddharth Vaddem</a>
-                    </div>
-                    <p class="project-description">Công cụ quay video demo màn hình mã nguồn mở, gọn nhẹ, chạy trực tiếp trên trình duyệt web mà không cần cài đặt ứng dụng bổ sung.</p>
-                </div>
-                <div class="card-footer">
-                    <div class="info-section">
-                        <div class="info-title"><i class="fa-solid fa-bolt"></i> Tình huống áp dụng</div>
-                        <ul class="info-list">
-                            <li>Quay demo sản phẩm nhanh để gửi đối tác hoặc đăng web.</li>
-                            <li>Ghi nhận lỗi (bug flow) phục vụ báo cáo kỹ thuật nội bộ.</li>
-                        </ul>
-                    </div>
-                    <div class="notes-section">
-                        <div class="notes-title"><i class="fa-solid fa-circle-info"></i> Ghi chú quan trọng</div>
-                        Hoạt động hoàn toàn offline trên trình duyệt thông qua API WebRTC, bảo mật tuyệt đối dữ liệu cá nhân của người dùng.
-                    </div>
-                    <a href="https://github.com/siddharthvaddem/openscreen" target="_blank" class="github-btn">
-                        <i class="fa-brands fa-github"></i> Xem Repository
-                    </a>
-                </div>
-            </div>
-
-            <!-- Project 2 (New) -->
-            <div class="project-card" data-title="KJ CLIController" data-desc="AI CLI gateway cục bộ điều phối agents và lưu log AGENT_LOG.md" data-author="Kent Juno">
-                <div>
-                    <div class="card-header">
-                        <span class="category-badge">Điều khiển Agent</span>
-                        <span class="origin-badge">
-                            <i class="fa-solid fa-star"></i> Việt Nam
-                        </span>
-                    </div>
-                    <h2 class="project-title">KJ CLIController</h2>
-                    <div class="author-box">
-                        <div class="author-avatar"><i class="fa-solid fa-user"></i></div>
-                        <span>Bởi</span>
-                        <a href="https://github.com/kentjuno" target="_blank" class="author-link">Kent Juno (@kentjuno)</a>
-                    </div>
-                    <p class="project-description">Trình điều khiển AI local CLI gateway cho phép điều phối các tác nhân khác nhau, kết nối ngữ cảnh thông qua tệp nhật ký chia sẻ.</p>
-                </div>
-                <div class="card-footer">
-                    <div class="info-section">
-                        <div class="info-title"><i class="fa-solid fa-bolt"></i> Tình huống áp dụng</div>
-                        <ul class="info-list">
-                            <li>Xây dựng quy trình phối hợp đa tác nhân (multi-agent) cục bộ.</li>
-                            <li>Lưu vết lịch sử xử lý và duy trì ngữ cảnh cho IDE.</li>
-                        </ul>
-                    </div>
-                    <div class="notes-section">
-                        <div class="notes-title"><i class="fa-solid fa-circle-info"></i> Ghi chú quan trọng</div>
-                        Đi kèm tệp script hỗ trợ `consult.py` tiện dụng và giao diện UI theo dõi cục bộ tại `localhost:8080/agents`.
-                    </div>
-                    <a href="https://github.com/kentjuno/KJCLIController" target="_blank" class="github-btn">
-                        <i class="fa-brands fa-github"></i> Xem Repository
-                    </a>
-                </div>
-            </div>
-
-            <!-- Project 3 (New) -->
-            <div class="project-card" data-title="Shortcast" data-desc="Tạo video ngắn TikTok/Shorts tự động chạy local bằng Gemma 4" data-author="Mutonby">
-                <div>
-                    <div class="card-header">
-                        <span class="category-badge">Sáng tạo nội dung</span>
-                        <span class="origin-badge">
-                            <i class="fa-solid fa-star"></i> Việt Nam
-                        </span>
-                    </div>
-                    <h2 class="project-title">Shortcast</h2>
-                    <div class="author-box">
-                        <div class="author-avatar"><i class="fa-solid fa-user"></i></div>
-                        <span>Bởi</span>
-                        <a href="https://github.com/mutonby" target="_blank" class="author-link">Mutonby</a>
-                    </div>
-                    <p class="project-description">Công cụ tự động hóa sản xuất video ngắn (Shorts, Reels, TikTok) sử dụng mô hình local Gemma 4 12B hoặc Qwen 3.5 9B chạy hoàn toàn offline.</p>
-                </div>
-                <div class="card-footer">
-                    <div class="info-section">
-                        <div class="info-title"><i class="fa-solid fa-bolt"></i> Tình huống áp dụng</div>
-                        <ul class="info-list">
-                            <li>Tạo video ngắn hàng loạt để làm kênh marketing tự động.</li>
-                            <li>Sáng tạo nội dung offline không tốn chi phí gọi API đám mây.</li>
-                        </ul>
-                    </div>
-                    <div class="notes-section">
-                        <div class="notes-title"><i class="fa-solid fa-circle-info"></i> Ghi chú quan trọng</div>
-                        Yêu cầu máy tính cấu hình tốt có card đồ họa (GPU) rời để tải và xử lý mượt mà mô hình local (5GB - 7GB).
-                    </div>
-                    <a href="https://github.com/mutonby/shortcast" target="_blank" class="github-btn">
-                        <i class="fa-brands fa-github"></i> Xem Repository
-                    </a>
-                </div>
-            </div>
-
-            <!-- Project 4 (New) -->
-            <div class="project-card" data-title="Open Notebook" data-desc="Công cụ offline nguồn mở thay thế 100% Google NotebookLM" data-author="lfnovo">
-                <div>
-                    <div class="card-header">
-                        <span class="category-badge">Quản lý Tri thức</span>
-                        <span class="origin-badge">
-                            <i class="fa-solid fa-earth-americas"></i> Global
-                        </span>
-                    </div>
-                    <h2 class="project-title">Open Notebook</h2>
-                    <div class="author-box">
-                        <div class="author-avatar"><i class="fa-solid fa-user"></i></div>
-                        <span>Bởi</span>
-                        <a href="https://github.com/lfnovo" target="_blank" class="author-link">lfnovo</a>
-                    </div>
-                    <p class="project-description">Công cụ nguồn mở thay thế trực tiếp cho Google NotebookLM, cho phép truy vấn tài liệu bảo mật nội bộ sử dụng đa mô hình ngôn ngữ.</p>
-                </div>
-                <div class="card-footer">
-                    <div class="info-section">
-                        <div class="info-title"><i class="fa-solid fa-bolt"></i> Tình huống áp dụng</div>
-                        <ul class="info-list">
-                            <li>Xây dựng Wiki công ty bảo mật hoặc tài liệu học tập cá nhân.</li>
-                            <li>Phân tích tài liệu tài chính, pháp lý nhạy cảm không muốn đẩy lên Cloud.</li>
-                        </ul>
-                    </div>
-                    <div class="notes-section">
-                        <div class="notes-title"><i class="fa-solid fa-circle-info"></i> Ghi chú quan trọng</div>
-                        Hỗ trợ tốt các mô hình local (Ollama) và API thương mại, cấu hình đơn giản thông qua file `.env`.
-                    </div>
-                    <a href="https://github.com/lfnovo/open-notebook" target="_blank" class="github-btn">
-                        <i class="fa-brands fa-github"></i> Xem Repository
-                    </a>
-                </div>
-            </div>
-
-            <!-- Project 5 (New) -->
-            <div class="project-card" data-title="OpenClaw" data-desc="AI Agent trợ lý cá nhân đa tác vụ chạy local tích hợp chat app" data-author="OpenClaw">
-                <div>
-                    <div class="card-header">
-                        <span class="category-badge">AI Agent</span>
-                        <span class="origin-badge">
-                            <i class="fa-solid fa-earth-americas"></i> Global
-                        </span>
-                    </div>
-                    <h2 class="project-title">OpenClaw</h2>
-                    <div class="author-box">
-                        <div class="author-avatar"><i class="fa-solid fa-user"></i></div>
-                        <span>Bởi</span>
-                        <a href="https://github.com/openclaw" target="_blank" class="author-link">OpenClaw</a>
-                    </div>
-                    <p class="project-description">Trợ lý AI Agent kết nối đa kênh (Slack, Telegram, Discord) có khả năng thực hiện lệnh và tự động hóa công việc chạy local.</p>
-                </div>
-                <div class="card-footer">
-                    <div class="info-section">
-                        <div class="info-title"><i class="fa-solid fa-bolt"></i> Tình huống áp dụng</div>
-                        <ul class="info-list">
-                            <li>Làm bot trực trang hỗ trợ khách hàng tự động đa nền tảng.</li>
-                            <li>Tạo chatbot điều khiển, giám sát máy chủ local qua tin nhắn chat app.</li>
-                        </ul>
-                    </div>
-                    <div class="notes-section">
-                        <div class="notes-title"><i class="fa-solid fa-circle-info"></i> Ghi chú quan trọng</div>
-                        Thường được dùng làm mô hình "Agent kiếm cơm" nhờ cấu hình tích hợp API nhanh và linh hoạt.
-                    </div>
-                    <a href="https://github.com/openclaw/openclaw" target="_blank" class="github-btn">
-                        <i class="fa-brands fa-github"></i> Xem Repository
-                    </a>
-                </div>
-            </div>
-
-            <!-- Project 6 (New) -->
-            <div class="project-card" data-title="Hermes Agent" data-desc="Tác nhân AI tự học hỏi và phát triển kỹ năng từ kinh nghiệm thực tế" data-author="Nous Research">
-                <div>
-                    <div class="card-header">
-                        <span class="category-badge">R&D Agent</span>
-                        <span class="origin-badge">
-                            <i class="fa-solid fa-earth-americas"></i> Global
-                        </span>
-                    </div>
-                    <h2 class="project-title">Hermes Agent</h2>
-                    <div class="author-box">
-                        <div class="author-avatar"><i class="fa-solid fa-user"></i></div>
-                        <span>Bởi</span>
-                        <a href="https://github.com/nousresearch" target="_blank" class="author-link">Nous Research</a>
-                    </div>
-                    <p class="project-description">Hệ thống tác nhân tự nâng cao kỹ năng (self-improving) thông qua các vòng lặp phản hồi và huấn luyện từ hành vi thực tế.</p>
-                </div>
-                <div class="card-footer">
-                    <div class="info-section">
-                        <div class="info-title"><i class="fa-solid fa-bolt"></i> Tình huống áp dụng</div>
-                        <ul class="info-list">
-                            <li>Nghiên cứu mô hình AI tự hoàn thiện logic và tạo kỹ năng mới.</li>
-                            <li>Xây dựng giải pháp tự động xử lý lỗi logic lập trình phức tạp.</li>
-                        </ul>
-                    </div>
-                    <div class="notes-section">
-                        <div class="notes-title"><i class="fa-solid fa-circle-info"></i> Ghi chú quan trọng</div>
-                        Phiên bản Foundation v0.14.0 mới được ra mắt cập nhật nhiều công cụ tối ưu hóa token.
-                    </div>
-                    <a href="https://github.com/nousresearch/hermes-agent" target="_blank" class="github-btn">
-                        <i class="fa-brands fa-github"></i> Xem Repository
-                    </a>
-                </div>
-            </div>
-
-            <!-- Project 7 (New) -->
-            <div class="project-card" data-title="gemma-skills" data-desc="Google đóng gói logic dùng AI thành dòng lệnh CLI tái sử dụng" data-author="Google Gemma">
-                <div>
-                    <div class="card-header">
-                        <span class="category-badge">Đóng gói Kỹ năng</span>
-                        <span class="origin-badge">
-                            <i class="fa-solid fa-earth-americas"></i> Global
-                        </span>
-                    </div>
-                    <h2 class="project-title">gemma-skills</h2>
-                    <div class="author-box">
-                        <div class="author-avatar"><i class="fa-solid fa-user"></i></div>
-                        <span>Bởi</span>
-                        <a href="https://github.com/google-gemma" target="_blank" class="author-link">Google Gemma</a>
-                    </div>
-                    <p class="project-description">Thư viện phát triển bởi Google hỗ trợ đóng gói các prompt và mã code thành các kỹ năng tái sử dụng nhanh qua terminal.</p>
-                </div>
-                <div class="card-footer">
-                    <div class="info-section">
-                        <div class="info-title"><i class="fa-solid fa-bolt"></i> Tình huống áp dụng</div>
-                        <ul class="info-list">
-                            <li>Tự động hóa CI/CD code audit, sửa lỗi format, tạo Unit Test.</li>
-                            <li>Chuẩn hóa cách các AI Editor nạp kịch bản xử lý trong dự án.</li>
-                        </ul>
-                    </div>
-                    <div class="notes-section">
-                        <div class="notes-title"><i class="fa-solid fa-circle-info"></i> Ghi chú quan trọng</div>
-                        Tối ưu hóa tối đa cho các dòng mô hình Gemma 2 và Gemma 4 của Google.
-                    </div>
-                    <a href="https://github.com/google-gemma/gemma-skills" target="_blank" class="github-btn">
-                        <i class="fa-brands fa-github"></i> Xem Repository
-                    </a>
-                </div>
-            </div>
-
-            <!-- Project 8 (Original) -->
-            <div class="project-card" data-title="ML for Software Engineers" data-desc="Lộ trình tự học Machine Learning thực hành top-down cho kỹ sư phần mềm" data-author="Nam Vũ">
-                <div>
-                    <div class="card-header">
-                        <span class="category-badge">Lộ trình học tập</span>
-                        <span class="origin-badge">
-                            <i class="fa-solid fa-star"></i> Việt Nam
-                        </span>
-                    </div>
-                    <h2 class="project-title">ML for Software Engineers</h2>
-                    <div class="author-box">
-                        <div class="author-avatar"><i class="fa-solid fa-user"></i></div>
-                        <span>Bởi</span>
-                        <a href="https://github.com/ZuzooVn" target="_blank" class="author-link">Nam Vũ (@ZuzooVn)</a>
-                    </div>
-                    <p class="project-description">Lộ trình tự học Machine Learning theo phương pháp thực hành từ trên xuống (top-down), được thiết kế tối ưu riêng cho các kỹ sư phần mềm.</p>
-                </div>
-                <div class="card-footer">
-                    <div class="info-section">
-                        <div class="info-title"><i class="fa-solid fa-bolt"></i> Tình huống áp dụng</div>
-                        <ul class="info-list">
-                            <li>Lập trình viên muốn chuyển hướng làm AI/ML.</li>
-                            <li>Xây dựng lộ trình đào tạo kỹ năng AI nội bộ cho nhóm phát triển.</li>
-                        </ul>
-                    </div>
-                    <div class="notes-section">
-                        <div class="notes-title"><i class="fa-solid fa-circle-info"></i> Ghi chú quan trọng</div>
-                        Một trong những repository học tập ML/DL nổi bật hàng đầu tại Việt Nam với lượng sao (star) khủng.
-                    </div>
-                    <a href="https://github.com/ZuzooVn/machine-learning-for-software-engineers" target="_blank" class="github-btn">
-                        <i class="fa-brands fa-github"></i> Xem Repository
-                    </a>
-                </div>
-            </div>
-
-            <!-- Project 9 (Original) -->
-            <div class="project-card" data-title="AG Kit" data-desc="Chèn personas và kịch bản kỹ năng AI local tối ưu token" data-author="Vũ Đỗ">
-                <div>
-                    <div class="card-header">
-                        <span class="category-badge">Bộ công cụ Agent</span>
-                        <span class="origin-badge">
-                            <i class="fa-solid fa-star"></i> Việt Nam
-                        </span>
-                    </div>
-                    <h2 class="project-title">AG Kit (Antigravity Kit)</h2>
-                    <div class="author-box">
-                        <div class="author-avatar"><i class="fa-solid fa-user"></i></div>
-                        <span>Bởi</span>
-                        <a href="https://github.com/vudovn" target="_blank" class="author-link">Vũ Đỗ (@vudovn)</a>
-                    </div>
-                    <p class="project-description">Chèn các tác nhân chuyên biệt (agent personas), kịch bản kỹ năng và quy trình tự động vào thư mục cục bộ giúp tối ưu hóa hiệu năng.</p>
-                </div>
-                <div class="card-footer">
-                    <div class="info-section">
-                        <div class="info-title"><i class="fa-solid fa-bolt"></i> Tình huống áp dụng</div>
-                        <ul class="info-list">
-                            <li>Cấu hình sâu kỹ năng AI tương tác trực tiếp với mã nguồn.</li>
-                            <li>Tiết kiệm 13% - 33% dung lượng token bằng cách tinh chỉnh ngữ cảnh.</li>
-                        </ul>
-                    </div>
-                    <div class="notes-section">
-                        <div class="notes-title"><i class="fa-solid fa-circle-info"></i> Ghi chú quan trọng</div>
-                        Công cụ hỗ trợ cực kỳ đắc lực cho các AI Editor làm việc độc lập tại local.
-                    </div>
-                    <a href="https://github.com/vudovn/ag-kit" target="_blank" class="github-btn">
-                        <i class="fa-brands fa-github"></i> Xem Repository
-                    </a>
-                </div>
-            </div>
-
-            <!-- Project 10 (Original) -->
-            <div class="project-card" data-title="ClaudeKit Skills" data-desc="Hệ sinh thái kỹ năng chạy trực tiếp trên terminal của Claude Code" data-author="mrgoonie">
-                <div>
-                    <div class="card-header">
-                        <span class="category-badge">Tiện ích mở rộng</span>
-                        <span class="origin-badge">
-                            <i class="fa-solid fa-star"></i> Việt Nam
-                        </span>
-                    </div>
-                    <h2 class="project-title">ClaudeKit Skills</h2>
-                    <div class="author-box">
-                        <div class="author-avatar"><i class="fa-solid fa-user"></i></div>
-                        <span>Bởi</span>
-                        <a href="https://github.com/mrgoonie" target="_blank" class="author-link">@mrgoonie</a>
-                    </div>
-                    <p class="project-description">Hệ sinh thái kịch bản kỹ năng đóng gói chạy trực tiếp trên terminal và chợ plugin hỗ trợ đắc lực cho Claude Code tự động hóa các tác vụ.</p>
-                </div>
-                <div class="card-footer">
-                    <div class="info-section">
-                        <div class="info-title"><i class="fa-solid fa-bolt"></i> Tình huống áp dụng</div>
-                        <ul class="info-list">
-                            <li>Tự động hóa lập trình frontend, database, tạo các API chuẩn.</li>
-                            <li>Phân rã các sub-agents để tránh tràn bộ nhớ ngữ cảnh.</li>
-                        </ul>
-                    </div>
-                    <div class="notes-section">
-                        <div class="notes-title"><i class="fa-solid fa-circle-info"></i> Ghi chú quan trọng</div>
-                        Giúp nâng tầm khả năng viết code tự động của các model CLI thế hệ mới.
-                    </div>
-                    <a href="https://github.com/mrgoonie/claudekit-skills" target="_blank" class="github-btn">
-                        <i class="fa-brands fa-github"></i> Xem Repository
-                    </a>
-                </div>
-            </div>
-
-            <!-- Project 11 (Original) -->
-            <div class="project-card" data-title="VieNeu-TTS" data-desc="Mô hình AI chuyển văn bản thành giọng đọc tiếng Việt chất lượng cao chạy offline" data-author="Bảo Phan">
-                <div>
-                    <div class="card-header">
-                        <span class="category-badge">Xử lý âm thanh</span>
-                        <span class="origin-badge">
-                            <i class="fa-solid fa-star"></i> Việt Nam
-                        </span>
-                    </div>
-                    <h2 class="project-title">VieNeu-TTS</h2>
-                    <div class="author-box">
-                        <div class="author-avatar"><i class="fa-solid fa-user"></i></div>
-                        <span>Bởi</span>
-                        <a href="https://github.com/pnnbao97" target="_blank" class="author-link">Bảo Phan (@pnnbao97)</a>
-                    </div>
-                    <p class="project-description">Mô hình AI chuyển văn bản thành giọng nói (Text-to-Speech) tiếng Việt và song ngữ Anh-Việt, hỗ trợ clone giọng nói 3 giây chạy offline.</p>
-                </div>
-                <div class="card-footer">
-                    <div class="info-section">
-                        <div class="info-title"><i class="fa-solid fa-bolt"></i> Tình huống áp dụng</div>
-                        <ul class="info-list">
-                            <li>Tích hợp giọng đọc tiếng Việt tự nhiên cho trợ lý ảo, chatbot.</li>
-                            <li>Phục vụ các ứng dụng bảo mật tuyệt đối chạy on-device (offline).</li>
-                        </ul>
-                    </div>
-                    <div class="notes-section">
-                        <div class="notes-title"><i class="fa-solid fa-circle-info"></i> Ghi chú quan trọng</div>
-                        Cho chất lượng giọng đọc truyền cảm, khắc phục được các vấn đề ngắt nghỉ của tiếng Việt.
-                    </div>
-                    <a href="https://github.com/pnnbao97/VieNeu-TTS" target="_blank" class="github-btn">
-                        <i class="fa-brands fa-github"></i> Xem Repository
-                    </a>
-                </div>
-            </div>
-
-            <!-- Project 12 (Original) -->
-            <div class="project-card" data-title="App Store Preflight" data-desc="Quét tự động phát hiện vi phạm chính sách nộp ứng dụng iOS/macOS" data-author="Duy Trương">
-                <div>
-                    <div class="card-header">
-                        <span class="category-badge">Kiểm định</span>
-                        <span class="origin-badge">
-                            <i class="fa-solid fa-star"></i> Việt Nam
-                        </span>
-                    </div>
-                    <h2 class="project-title">App Store Preflight</h2>
-                    <div class="author-box">
-                        <div class="author-avatar"><i class="fa-solid fa-user"></i></div>
-                        <span>Bởi</span>
-                        <a href="https://github.com/truongduy2611" target="_blank" class="author-link">Duy Trương (@truongduy2611)</a>
-                    </div>
-                    <p class="project-description">Bộ quét tự động phát hiện các lỗi vi phạm chính sách của Apple (App Store Rejection Patterns) dành cho dự án iOS/macOS.</p>
-                </div>
-                <div class="card-footer">
-                    <div class="info-section">
-                        <div class="info-title"><i class="fa-solid fa-bolt"></i> Tình huống áp dụng</div>
-                        <ul class="info-list">
-                            <li>Kiểm tra tính tuân thủ chính sách bảo mật trước khi submit.</li>
-                            <li>Quét kiểm thử nhanh cấu hình Entitlements và Manifest.</li>
-                        </ul>
-                    </div>
-                    <div class="notes-section">
-                        <div class="notes-title"><i class="fa-solid fa-circle-info"></i> Ghi chú quan trọng</div>
-                        Tiết kiệm đáng kể thời gian chờ kiểm duyệt của nhà phát triển ứng dụng di động.
-                    </div>
-                    <a href="https://github.com/truongduy2611/app-store-preflight-skills" target="_blank" class="github-btn">
-                        <i class="fa-brands fa-github"></i> Xem Repository
-                    </a>
-                </div>
-            </div>
-
-            <!-- Project 13 (Original) -->
-            <div class="project-card" data-title="AI DevKit" data-desc="Bộ công cụ chia sẻ bộ nhớ và giao tiếp chéo giữa các AI Agent" data-author="Hoang Nguyen">
-                <div>
-                    <div class="card-header">
-                        <span class="category-badge">Phối hợp Tác nhân</span>
-                        <span class="origin-badge">
-                            <i class="fa-solid fa-star"></i> Việt Nam
-                        </span>
-                    </div>
-                    <h2 class="project-title">AI DevKit</h2>
-                    <div class="author-box">
-                        <div class="author-avatar"><i class="fa-solid fa-user"></i></div>
-                        <span>Bởi</span>
-                        <a href="https://github.com/codeaholicguy" target="_blank" class="author-link">Hoang Nguyen (@codeaholicguy)</a>
-                    </div>
-                    <p class="project-description">Universal CLI toolkit giúp các AI Agent làm việc theo quy trình chuẩn và hỗ trợ chia sẻ bộ nhớ/giao tiếp chéo giữa các phiên làm việc.</p>
-                </div>
-                <div class="card-footer">
-                    <div class="info-section">
-                        <div class="info-title"><i class="fa-solid fa-bolt"></i> Tình huống áp dụng</div>
-                        <ul class="info-list">
-                            <li>Thiết lập phối hợp giữa nhiều tác nhân thông minh khác nhau.</li>
-                            <li>Đồng bộ hóa tri thức để tránh việc AI bị quên khi chuyển ngữ cảnh.</li>
-                        </ul>
-                    </div>
-                    <div class="notes-section">
-                        <div class="notes-title"><i class="fa-solid fa-circle-info"></i> Ghi chú quan trọng</div>
-                        Là kiến trúc nền tảng hỗ trợ liên kết các AI Agent trong quy trình DevOps phức tạp.
-                    </div>
-                    <a href="https://github.com/codeaholicguy/ai-devkit" target="_blank" class="github-btn">
-                        <i class="fa-brands fa-github"></i> Xem Repository
-                    </a>
-                </div>
-            </div>
+            <!-- Project Cards will be rendered dynamically by JS to allow live filtering -->
         </div>
 
-        <!-- Table View Mode -->
+        <!-- Section 2: Full Detailed Table -->
+        <h2 class="section-title"><i class="fa-solid fa-table-list"></i> Bảng Tổng Hợp Chi Tiết</h2>
         <div class="projects-table-container" id="projectsTableContainer">
             <table class="projects-table">
                 <thead>
                     <tr>
-                        <th>Tên Dự Án</th>
-                        <th>Phân Loại / Xuất xứ</th>
-                        <th>Mô Tả Chi Tiết</th>
-                        <th>Tình Huống Áp Dụng</th>
-                        <th>Ghi Chú Quan Trọng</th>
-                        <th>GitHub Link</th>
+                        <th style="width: 5%">STT</th>
+                        <th style="width: 20%">Tên Repo / Tác giả</th>
+                        <th style="width: 15%">Link GitHub</th>
+                        <th style="width: 35%">Mục đích</th>
+                        <th style="width: 25%">Các ghi chú khác</th>
                     </tr>
                 </thead>
                 <tbody id="projectsTableBody">
@@ -1088,7 +627,7 @@
     </div>
 
     <script>
-        // Project Data for Table View Generation & Search Filter
+        // Full project list including Google Workspace MCP as the 14th project
         const projects = [
             {
                 title: "OpenScreen",
@@ -1196,6 +735,21 @@
                 github: "https://github.com/google-gemma/gemma-skills"
             },
             {
+                title: "google_workspace_mcp",
+                category: "Tích hợp Workspace",
+                origin: "Global",
+                originIcon: "fa-earth-americas",
+                author: "Taylor Wilsdon",
+                authorUrl: "https://github.com/taylorwilsdon",
+                desc: "MCP Server kết nối các AI Agent (như Claude, Codex, Antigravity) trực tiếp với Google Workspace bao gồm Gmail, Drive, Docs, Sheets, Calendar, Forms, Tasks...",
+                usecases: [
+                    "Gọi và thao tác các công cụ Google Workspace ngay từ dòng lệnh của Agent.",
+                    "Tự động tìm kiếm file trên Drive, gửi mail, hoặc đặt lịch họp Calendar."
+                ],
+                notes: "Hỗ trợ chế độ --secretless chạy nhanh không cần cấu hình API Key. Khuyên dùng chạy bằng uvx.",
+                github: "https://github.com/taylorwilsdon/google_workspace_mcp"
+            },
+            {
                 title: "ML for Software Engineers",
                 category: "Lộ trình học tập",
                 origin: "Việt Nam",
@@ -1287,120 +841,126 @@
             }
         ];
 
-        let currentViewMode = 'card';
+        // Populate Cards Grid
+        function populateCards(filtered) {
+            const grid = document.getElementById('projectsGrid');
+            grid.innerHTML = '';
+            
+            filtered.forEach(p => {
+                const card = document.createElement('div');
+                card.className = 'project-card';
+                
+                const usecasesHtml = p.usecases.map(u => `<li>${u}</li>`).join('');
+                
+                card.innerHTML = `
+                    <div>
+                        <div class="card-header">
+                            <span class="category-badge">${p.category}</span>
+                            <span class="origin-badge">
+                                <i class="fa-solid ${p.originIcon}"></i> ${p.origin}
+                            </span>
+                        </div>
+                        <h2 class="project-title">${p.title}</h2>
+                        <div class="author-box">
+                            <div class="author-avatar"><i class="fa-solid fa-user"></i></div>
+                            <span>Bởi</span>
+                            <a href="${p.authorUrl}" target="_blank" class="author-link">${p.author}</a>
+                        </div>
+                        <p class="project-description">${p.desc}</p>
+                    </div>
+                    <div class="card-footer">
+                        <div class="info-section">
+                            <div class="info-title"><i class="fa-solid fa-bolt"></i> Tình huống áp dụng</div>
+                            <ul class="info-list">
+                                ${usecasesHtml}
+                            </ul>
+                        </div>
+                        <div class="notes-section">
+                            <div class="notes-title"><i class="fa-solid fa-circle-info"></i> Ghi chú quan trọng</div>
+                            ${p.notes}
+                        </div>
+                        <a href="${p.github}" target="_blank" class="github-btn">
+                            <i class="fa-brands fa-github"></i> Xem Repository
+                        </a>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
 
-        // Initialize Table
-        function populateTable(filteredProjects) {
+        // Populate Table Rows (STT, Tên Repo, Link GitHub, Mục đích, Các ghi chú khác)
+        function populateTable(filtered) {
             const tbody = document.getElementById('projectsTableBody');
             tbody.innerHTML = '';
             
-            filteredProjects.forEach(p => {
+            filtered.forEach((p, index) => {
                 const tr = document.createElement('tr');
                 
                 const usecasesHtml = p.usecases.map(u => `<li>${u}</li>`).join('');
                 
                 tr.innerHTML = `
+                    <td class="table-stt">${index + 1}</td>
                     <td>
                         <div class="table-proj-title">${p.title}</div>
                         <div class="table-author">Bởi <a href="${p.authorUrl}" target="_blank" class="author-link">${p.author}</a></div>
-                    </td>
-                    <td>
-                        <div class="table-badge-group">
-                            <span class="category-badge">${p.category}</span>
-                            <span class="origin-badge"><i class="fa-solid ${p.originIcon}"></i> ${p.origin}</span>
+                        <div style="margin-top: 0.35rem">
+                            <span class="category-badge" style="font-size: 0.65rem; padding: 0.15rem 0.5rem;">${p.category}</span>
                         </div>
-                    </td>
-                    <td style="max-width: 300px;">${p.desc}</td>
-                    <td>
-                        <ul class="table-usecases">
-                            ${usecasesHtml}
-                        </ul>
-                    </td>
-                    <td style="max-width: 250px; font-size: 0.85rem; color: #f472b6;">
-                        <i class="fa-solid fa-circle-info"></i> ${p.notes}
                     </td>
                     <td>
                         <a href="${p.github}" target="_blank" class="table-github-link">
-                            <i class="fa-brands fa-github"></i> Repository
+                            <i class="fa-brands fa-github"></i> GitHub Link
                         </a>
+                    </td>
+                    <td>
+                        <div class="table-purpose-box">
+                            <div class="table-desc-text">${p.desc}</div>
+                            <div style="font-size: 0.75rem; text-transform: uppercase; color: var(--accent-cyan); font-weight: 700; margin-top: 0.25rem;">
+                                <i class="fa-solid fa-bolt"></i> Tình huống áp dụng:
+                            </div>
+                            <ul class="table-usecases-list">
+                                ${usecasesHtml}
+                            </ul>
+                        </div>
+                    </td>
+                    <td style="color: #f472b6; font-size: 0.85rem;">
+                        <i class="fa-solid fa-circle-info"></i> ${p.notes}
                     </td>
                 `;
                 tbody.appendChild(tr);
             });
         }
 
-        // Set View Mode (Card vs Table)
-        function setViewMode(mode) {
-            currentViewMode = mode;
-            const cardBtn = document.getElementById('cardViewBtn');
-            const tableBtn = document.getElementById('tableViewBtn');
-            const grid = document.getElementById('projectsGrid');
-            const tableContainer = document.getElementById('projectsTableContainer');
-
-            if (mode === 'card') {
-                cardBtn.classList.add('active');
-                tableBtn.classList.remove('active');
-                grid.style.display = 'grid';
-                tableContainer.style.display = 'none';
-            } else {
-                cardBtn.classList.remove('active');
-                tableBtn.classList.add('active');
-                grid.style.display = 'none';
-                tableContainer.style.display = 'block';
-            }
-            filterProjects();
-        }
-
         // Filter projects based on search input
         function filterProjects() {
             const query = document.getElementById('searchInput').value.toLowerCase().trim();
-            const cards = document.querySelectorAll('.project-card');
             const emptyState = document.getElementById('emptyState');
             const statsCount = document.getElementById('statsCount');
+            const grid = document.getElementById('projectsGrid');
+            const tableContainer = document.getElementById('projectsTableContainer');
             
-            let visibleCount = 0;
-            const filtered = [];
-
-            // Card view filtering
-            cards.forEach(card => {
-                const title = card.getAttribute('data-title').toLowerCase();
-                const desc = card.getAttribute('data-desc').toLowerCase();
-                const author = card.getAttribute('data-author').toLowerCase();
-
-                if (title.includes(query) || desc.includes(query) || author.includes(query)) {
-                    card.style.display = 'flex';
-                    visibleCount++;
-                } else {
-                    card.style.display = 'none';
-                }
+            const filtered = projects.filter(p => {
+                return p.title.toLowerCase().includes(query) || 
+                       p.desc.toLowerCase().includes(query) || 
+                       p.author.toLowerCase().includes(query) || 
+                       p.category.toLowerCase().includes(query) ||
+                       p.notes.toLowerCase().includes(query);
             });
 
-            // Table view filtering & populating
-            projects.forEach(p => {
-                const title = p.title.toLowerCase();
-                const desc = p.desc.toLowerCase();
-                const author = p.author.toLowerCase();
-                const category = p.category.toLowerCase();
-
-                if (title.includes(query) || desc.includes(query) || author.includes(query) || category.includes(query)) {
-                    filtered.push(p);
-                }
-            });
-
+            // Re-render both views
+            populateCards(filtered);
             populateTable(filtered);
             
-            // Adjust count for table mode as well
-            const count = (currentViewMode === 'card') ? visibleCount : filtered.length;
-            statsCount.textContent = `Đang hiển thị: ${count} dự án`;
+            statsCount.textContent = `Đang hiển thị: ${filtered.length} dự án`;
 
-            if (count === 0) {
+            if (filtered.length === 0) {
                 emptyState.style.display = 'block';
-                document.getElementById('projectsTableContainer').style.display = 'none';
+                grid.style.display = 'none';
+                tableContainer.style.display = 'none';
             } else {
                 emptyState.style.display = 'none';
-                if (currentViewMode === 'table') {
-                    document.getElementById('projectsTableContainer').style.display = 'block';
-                }
+                grid.style.display = 'grid';
+                tableContainer.style.display = 'block';
             }
         }
 
@@ -1409,8 +969,8 @@
 
         // Initial setup
         window.addEventListener('DOMContentLoaded', () => {
+            populateCards(projects);
             populateTable(projects);
-            setViewMode('card');
         });
     </script>
 </body>
